@@ -54,7 +54,7 @@ function fileTree(dir) {
 
         urlToFile = path.normalize(urlToFile);
         var urlFromHostRoot = urlToFile.replace('../','/'),
-            rootLength = global.opts.common.pathToSpecs.replace('../', '/').length;
+            rootLength = sourceRoot.replace('../', '/').length;
 
         arr[baseName] = arr[baseName];
 
