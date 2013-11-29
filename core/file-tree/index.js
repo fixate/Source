@@ -3,8 +3,7 @@ var fs = require('fs'),
     path = require('path');
 
     // sourceMaster root path
-    var sourceRoot = global.opts.common.pathToSpecs,
-        rootLength = global.opts.common.pathToSpecs.length;
+    var sourceRoot = global.opts.common.pathToSpecs;
 
 // add directory name for exclude, write path from root ( Example: ['core','docs/base'] )
 var excludedDirs = global.opts.fileTree.excludedDirs;
@@ -50,11 +49,12 @@ function fileTree(dir) {
 
         if (dir.match(excludes)) {return}
 
-        var urlToFile = dir + '/' + file,
+        var urlToFile = path.join(dir, file),
             baseName = path.basename(dir);
 
         urlToFile = path.normalize(urlToFile);
-        var urlFromHostRoot = urlToFile.replace('../','/');
+        var urlFromHostRoot = urlToFile.replace('../','/'),
+            rootLength = global.opts.common.pathToSpecs.replace('../', '/').length;
 
         arr[baseName] = arr[baseName];
 
