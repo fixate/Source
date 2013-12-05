@@ -13,9 +13,7 @@ module.exports = function(grunt) {
     };
 
     var getSourceOptions = function() {
-        var options = require('./core/options');
-
-        return options;
+        return require('./core/options');
     };
 
     // Tasks

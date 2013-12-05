@@ -7,13 +7,21 @@
 /* Module dependencies */
 var express = require('express')
     , colors = require('colors')
-    , fs = require('fs');
+    , fs = require('fs')
+    , commander = require('commander')
+    , pkg = require('./package.json');
 
 global.app = express();
 global.opts = require('./core/options/');
 
 global.app.set('views', __dirname + '/core/views');
 global.app.set('specs path', __dirname + '/' + global.opts.common.pathToSpecs);
+
+// Parse args
+commander
+  .version(pkg.version)
+  .option('-p, --port [number]', 'Server port (default: 80)', 80)
+  .parse(process.argv);
 
 /*  Clarify module */
 var clarify = require('./core/clarify');
@@ -54,8 +62,9 @@ try {
 }
 
 if (!module.parent) {
-    global.app.listen(80);
-    console.log('[SOURCE] is working on 80 port...'.blue);
+    var port = parseInt(commander.port);
+    global.app.listen(port);
+    console.log('[SOURCE] is working on '+port+' port...'.blue);
 }
 
 function logErrors(err, req, res, next) {
